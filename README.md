@@ -13,12 +13,13 @@ a button.
 - Displays to user what event is ocurring, and whether it is currently occuring
 - Displays the current time to the user
 - Users data will be stored to their local storage, if they refresh their screen, the data will remain the same unless menualy removed by user
+![screenshot](develop/images/daily-planning-wizard-screenshot.png)
 
 Link to [Live Website](https://trishaneww.github.io/daily-planning-wizard/)
 
 ## WireFrame
 
-![screenshot](develop/images/daily-planning-wizard-screenshot)
+![screenshot](develop/images/wizard-wireframe.png)
 
 ## Credit
 
