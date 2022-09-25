@@ -1,13 +1,10 @@
 let row = 0
 let td = new Date()
-
-// get id timeBlock element
 let timeBlocks = $('#timeBlocks')
 for (let i = 9; i <= 17; i++) {
   let time = i
-  // grabs the current hour for our current time so that whenever a certain time hits it'll change the background color
-  let currentTime = `${td.getHours()}`
-  let backgroundColor = ''
+  let currentTime = `${td.getHours()}` //selects the users current time
+  let backgroundColor = '' // depending on the users time, the background color of the calendar events will change to inform the user
 
   if (time < currentTime) {
     backgroundColor = 'light'
@@ -16,8 +13,7 @@ for (let i = 9; i <= 17; i++) {
   } else {
     backgroundColor = 'success'
   }
-
-  // change clock format to 12 hours and determine if its AM or PM
+  // this set of if statements refactors the displayed time as the 12 hour system (includes AM and PM)
   if (i < 12) {
     time += ' AM'
   } else if (i == 12) {
@@ -27,10 +23,12 @@ for (let i = 9; i <= 17; i++) {
     time += ' PM'
   }
 
-  /*
-    if i try to find the value inside of my local storage for that row is empty -> i display nothing
-    else there is a value and i want to display it
-   */
+let currentDate = moment() // retrieves the current day of the users device and formats it in MMM DO YYYY format
+$('#formatDate').text(currentDate.format('MMM Do, YYYY'))
+
+let formatDate = $('#formatDate') // formats the display of the current day
+formatDate.css('font-weight', 'bolder')   
+
   let text
   if (localStorage.getItem(row) === null) {
     text = ''
@@ -38,6 +36,7 @@ for (let i = 9; i <= 17; i++) {
     text = localStorage.getItem(row)
   }
 
+  // changes the text and background color of the row/timeblock
   timeBlocks.append(`
     <div class="d-flex col-12">
       <div class="col-2 timeOfDay"> ${time}</div>
@@ -47,32 +46,20 @@ for (let i = 9; i <= 17; i++) {
       </button>
     </div>
   `)
-  // increase row for next row
-  row += 1
+  row += 1 // increases the value of the row, this will then select the next row
 }
 let saveButton = $('.saveBtn')
 
 saveButton.on('click', function (event) {
   event.preventDefault()
-  // find which row was clicked
-  let rowNumberClicked = $(this).attr('data-row')
+  let clickedRow = $(this).attr('data-row') // determines which row has been clicked
   console.log($(this).attr('data-row'))
 
-  // find the row
-  let row = timeBlocks.children().eq(rowNumberClicked)
+  let row = timeBlocks.children().eq(clickedRow) // retrieves the current row 
 
-  // get the textarea val for that row
-  let textAreaForRow = row.children('textarea').val()
+  let rowText = row.children('textarea').val()  // retrieves the text area of the selected row
 
-  if (textAreaForRow !== '') {
-    // save text area of that row into local storage where the key is the index of the row and the value is the content of the text area
-    localStorage.setItem(rowNumberClicked, textAreaForRow)
+  if (rowText !== '') {
+    localStorage.setItem(clickedRow, rowText) // saves users text value into their local storage 
   }
 })
-
-//displays current day
-let today = moment()
-$('#datetime').text(today.format('MMM Do, YYYY'))
-
-let dateTime = $('#datetime')
-dateTime.css('font-weight', 'bolder')
