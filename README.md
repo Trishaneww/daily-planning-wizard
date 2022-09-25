@@ -12,6 +12,7 @@ a button.
 - User has the capability to create new events/toDos
 - Displays to user what event is ocurring, and whether it is currently occuring
 - Displays the current time to the user
+- Users data will be stored to their local storage, if they refresh their screen, the data will remain the same unless menualy removed by user
 
 Link to [Live Website](https://trishaneww.github.io/daily-planning-wizard/)
 
