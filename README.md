@@ -18,7 +18,7 @@ Link to [Live Website](https://trishaneww.github.io/daily-planning-wizard/)
 
 ## WireFrame
 
-![screenshot](develop/images/wireframe-module4)
+![screenshot](develop/images/daily-planning-wizard-screenshot)
 
 ## Credit
 
