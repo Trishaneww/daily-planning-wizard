@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <!--inks all the bootstrap data used within this program-->
     <link
       rel="stylesheet"
       href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
@@ -18,21 +19,26 @@
       href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="develop/css/style.css" />
-    <title>Work Day Scheduler</title>
+    <link rel="stylesheet" href="style.css" />
+    <title>Daily Planning Wizard</title> <!--gives the title of the tabbar this name-->
   </head>
 
   <body>
+    <!--displays the name, description, and current date of the program-->
     <header class="jumbotron">
-      <h1 class="display-3">Work Day Scheduler</h1>
-      <p class="lead">A simple calendar app for scheduling your work day</p>
+      <h1 class="display-3">Daily Planning Wizard</h1>
+      <p class="lead">The Perfect Application To Organize Your Day</p>
       <p id="currentDay" class="lead"></p>
+      <p id="formatDate"></p>
     </header>
-    <div class="container">
-      <!-- Timeblocks go here -->
+    <!-- Timeblocks go here -->
+    <div id="timeBlocks" class="row d-flex flex-wrap justify-content-center"> </div>
+      
     </div>
 
+    <!--links the libraries and javascript files used in this program-->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+    <script src="script.js" type=""></script>
   </body>
 </html>
