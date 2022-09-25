@@ -1,72 +1,65 @@
-body {
-  font-family: 'Open Sans', sans-serif;
-  font-size: 16px;
-  line-height: 1;
-}
+let row = 0
+let td = new Date()
+let timeBlocks = $('#timeBlocks')
+for (let i = 9; i <= 17; i++) {
+  let time = i
+  let currentTime = `${td.getHours()}` //selects the users current time
+  let backgroundColor = '' // depending on the users time, the background color of the calendar events will change to inform the user
 
-textarea {
-  background: transparent;
-  border: none;
-  resize: none;
-  color: #000000;
-  border-left: 1px solid black;
-  padding: 10px;
-}
+  if (time < currentTime) {
+    backgroundColor = 'light'
+  } else if (time == currentTime) {
+    backgroundColor = 'danger'
+  } else {
+    backgroundColor = 'success'
+  }
+  // this set of if statements refactors the displayed time as the 12 hour system (includes AM and PM)
+  if (i < 12) {
+    time += ' AM'
+  } else if (i == 12) {
+    time += ' PM'
+  } else {
+    time -= 12
+    time += ' PM'
+  }
 
-.jumbotron {
-  text-align: center;
-  background-color: transparent;
-  color: black;
-  border-radius: 0;
-  border-bottom: 10px solid black;
-}
+let currentDate = moment() // retrieves the current day of the users device and formats it in MMM DO YYYY format
+$('#formatDate').text(currentDate.format('MMM Do, YYYY'))
 
-.description {
-  white-space: pre-wrap;
-}
+let formatDate = $('#formatDate') // formats the display of the current day
+formatDate.css('font-weight', 'bolder')   
 
-.time-block {
-  text-align: center;
-  border-radius: 15px;
-}
+  let text
+  if (localStorage.getItem(row) === null) {
+    text = ''
+  } else {
+    text = localStorage.getItem(row)
+  }
 
-.row {
-  white-space: pre-wrap;
-  height: 80px;
-  border-top: 1px solid white;
+  // changes the text and background color of the row/timeblock
+  timeBlocks.append(`
+    <div class="d-flex col-12">
+      <div class="col-2 timeOfDay"> ${time}</div>
+      <textarea id="text" class="col-9 border time-block p-4 mb-2 bg-${backgroundColor} text-black">${text}</textarea>
+      <button class="saveBtn col-1 border justify-content-center d-flex align-items-center" data-row=${row}>
+        <i type="submit" class="fas fa-save"></i>
+      </button>
+    </div>
+  `)
+  row += 1 // increases the value of the row, this will then select the next row
 }
+let saveButton = $('.saveBtn')
 
-.hour {
-  background-color: #ffffff;
-  color: #000000;
-  border-top: 1px dashed #000000;
-}
+saveButton.on('click', function (event) {
+  event.preventDefault()
+  let clickedRow = $(this).attr('data-row') // determines which row has been clicked
+  console.log($(this).attr('data-row'))
 
-.past {
-  background-color: #d3d3d3;
-  color: white;
-}
+  let row = timeBlocks.children().eq(clickedRow) // retrieves the current row 
 
-.present {
-  background-color: #ff6961;
-  color: white;
-}
+  let rowText = row.children('textarea').val()  // retrieves the text area of the selected row
 
-.future {
-  background-color: #77dd77;
-  color: white;
-}
-
-.saveBtn {
-  border-left: 1px solid black;
-  border-top-right-radius: 15px;
-  border-bottom-right-radius: 15px;
-  background-color: #06aed5;
-  color: white;
-}
-
-.saveBtn i:hover {
-  font-size: 20px;
-  transition: all 0.3s ease-in-out;
-}
-
+  if (rowText !== '') {
+    localStorage.setItem(clickedRow, rowText) // saves users text value into their local storage 
+  }
+})
